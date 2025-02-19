@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talking Avatar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background-color: #b5f30b;
+            border-radius: 50%;
+            position: relative;
+            margin: auto;
+        }
+        .mouth {
+            width: 50px;
+            height: 20px;
+            background-color: #463d3d;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .talking {
+            height: 40px;
+            width: 50px;
+        }
+        input, button {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Talking Avatar</h1>
+    <div class="avatar">
+        <div class="mouth" id="mouth"></div>
+    </div>
+
+    <input type="text" id="text-input" placeholder="Type something...">
+    <button onclick="speak()">Speak</button>
+
+    <script>
+        function speak() {
+            let text = document.getElementById("text-input").value;
+            let speech = new SpeechSynthesisUtterance(text);
+            let mouth = document.getElementById("mouth");
+
+            speech.onstart = function() {
+                mouth.classList.add("talking"); // Animate mouth
+            };
+
+            speech.onend = function() {
+                mouth.classList.remove("talking"); // Stop animation
+            };
+
+            speechSynthesis.speak(speech);
+        }
+    </script>
+
+</body>
+</html>
